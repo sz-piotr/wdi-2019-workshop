@@ -5,6 +5,10 @@ describe('validateString', () => {
     expect(validateString('Hello World!')).toEqual([])
   })
 
+  it('succeds for empty strings', () => {
+    expect(validateString('')).toEqual([])
+  })
+
   it.each([
     [1],
     [true],
