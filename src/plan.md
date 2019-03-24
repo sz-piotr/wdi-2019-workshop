@@ -183,7 +183,7 @@ const formData = {
   email: 'john.doe@mail.com',
   creditCard: {
     number: '1234 5678 9012 3456',
-    expires: '01/23',
+    expires: [01, 23],
     cvc: '123'
   }
 }
@@ -192,16 +192,73 @@ const formData = {
 ### Walidacja imperatywna
 
 ```javascript
-const EMAIL_REGEX = //
+const EMAIL_REGEX = /.+@.+/
+const CREDIT_CARD_REGEX = /\d{4} \d{4} \d{4} \d{4}/
+const CVC_REGEX = /\d{3}/
+
 function validateForm (data) {
   const errors = []
-  if (data.name === '' && data.name === undefined) {
+
+  if (data.name === '' && typeof data.name !== 'string') {
     errors.push({ path: 'data.name', expected: 'non-empty string' })
   }
-  if (data.email === '' && data.email === undefined) {
-    errors.push({ path: 'data.email', expected: 'non-empty string' })
-  } else if (!) {
 
+  if (data.email === '' && typeof data.email !== 'string') {
+    errors.push({ path: 'data.email', expected: 'non-empty string' })
+  } else if (!EMAIL_REGEX.test(data.email)) {
+    errors.push({ path: 'data.email', expected: 'valid email address' })
   }
 
+  if (typeof data.creditCard !== 'object') {
+    errors.push({ path: 'data.creditCard', expected: 'object' })
+  } else {
+
+    if (data.creditCard.number === '' && typeof data.creditCard.number !== 'string') {
+      errors.push({ path: 'data.creditCard.number', expected: 'non-empty string' })
+    } else if (!CREDIT_CARD_REGEX.test(data.creditCard.number)) {
+      errors.push({ path: 'data.creditCard.number', expected: 'valid credit card number' })
+    }
+
+    if (!Array.isArray(data.creditCard.expires)) {
+      errors.push({ path: 'data.creditCard.expires', expected: 'array' })
+    } else {
+
+      // TODO: finish
+
+    }
+
+    if (data.creditCard.cvc === '' && typeof data.creditCard.cvc !== 'string') {
+      errors.push({ path: 'data.creditCard.cvc', expected: 'non-empty string' })
+    } else if (!CVC_REGEX.test(data.creditCard.cvc)) {
+      errors.push({ path: 'data.creditCard.cvc', expected: 'three digit cvc code' })
+    }
+
+  }
 }
+```
+
+### Walidacja funkcyjna
+
+```javascript
+const validateFormData = validateObject({
+  name: validateAll(
+    validateString,
+    validateLongerThan(0)
+  ),
+  email: validateRegex(/.+@.+/, 'valid email address'),
+  creditCard: validateObject({
+    number: validateRegex(/\d{4} \d{4} \d{4} \d{4}/, 'valid credit card number'),
+    expires: validateTuple(
+      validateAll(
+        validateInteger,
+        validateBetween(0, 12),
+      ),
+      validateAll(
+        validateInteger,
+        validateBetween(0, 99),
+      ),
+    ),
+    cvc: validateRegex(/\d{3}/, 'three digit cvc code')
+  })
+})
+```
