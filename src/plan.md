@@ -255,3 +255,76 @@ const validateForm = validateObject({
   })
 })
 ```
+
+Zadania
+-------
+
+1. (*) `validateString`
+
+```javascript
+const validateString = (value, path = '') =>
+  typeof value !== 'string'
+    ? [{ path, expected: 'string' }]
+    : []
+```
+
+1. (*) `validateNot`
+
+```javascript
+const validateNot = item => (value, path = '') =>
+  value === item
+    ? [{ path, expected: `not ${JSON.stringify(item)}` }]
+    : []
+```
+
+1. (*) `validateObject`
+
+```javascript
+const validateObject = schema => (value, path = '') => {
+  if (typeof value !== object) {
+    return [{ path, expected: 'object' }]
+  }
+  const errors = []
+  for (const [key, validate] of Object.entries(schema)) {
+    errors.push(...validate(value[key], `${path}.${key}`))
+  }
+  return errors
+}
+```
+
+1. `validateAll`
+
+```javascript
+const validateAll = (...validators) => (value, path = '') => {
+  const errors = []
+  for (validate of validators) {
+    errors.push(...validate(value, path))
+  }
+  return errors
+}
+```
+
+1. `validateNonEmptyString`
+
+```javascript
+const validateNonEmptyString = validateAll(
+  validateString,
+  validateNot('')
+)
+```
+
+1. `validateRegex`
+1. `validateInteger`
+1. `validateBetween`
+1. `validateIntBetween`
+
+```javascript
+const validateIntBetween = (a, b) =>
+  validateAll(
+    validateInteger,
+    validateBetween(a, b)
+  )
+```
+
+1. `validateTuple`
+1. `validateForm`
