@@ -234,29 +234,22 @@ function validateForm (data) {
     }
 
   }
+
+  return errors
 }
 ```
 
 ### Walidacja funkcyjna
 
 ```javascript
-const validateFormData = validateObject({
-  name: validateAll(
-    validateString,
-    validateLongerThan(0)
-  ),
+const validateForm = validateObject({
+  name: validateNonEmptyString,
   email: validateRegex(/.+@.+/, 'valid email address'),
   creditCard: validateObject({
     number: validateRegex(/\d{4} \d{4} \d{4} \d{4}/, 'valid credit card number'),
     expires: validateTuple(
-      validateAll(
-        validateInteger,
-        validateBetween(0, 12),
-      ),
-      validateAll(
-        validateInteger,
-        validateBetween(0, 99),
-      ),
+      validateIntBetween(0, 12),
+      validateIntBetween(0, 99)
     ),
     cvc: validateRegex(/\d{3}/, 'three digit cvc code')
   })
