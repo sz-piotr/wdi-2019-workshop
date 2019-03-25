@@ -1,6 +1,6 @@
 import { validateRegex } from '../src/validateRegex'
 
-describe('validateRegex', () => {
+describe.skip('validateRegex', () => {
   it('succeeds when regex test passes', () => {
     const validate = validateRegex(/x/, 'message')
     const errors = validate('x')

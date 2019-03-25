@@ -1,7 +1,7 @@
 import { validateObject } from '../src/validateObject'
 import { validateString } from '../src/validateString'
 
-describe('validateObject', () => {
+describe.skip('validateObject', () => {
   it.each([
     1, 'foo', false, null, undefined
   ])('fails for %s', (value) => {

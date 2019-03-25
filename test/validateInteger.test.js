@@ -1,6 +1,6 @@
 import { validateInteger } from '../src/validateInteger'
 
-describe('validateInteger', () => {
+describe.skip('validateInteger', () => {
   it.each([
     0, -1, 1, 2, 3, -1996, 2019
   ])('succeds for %d', (x) => {

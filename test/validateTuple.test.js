@@ -1,7 +1,7 @@
 import { validateTuple } from '../src/validateTuple'
 import { validateString } from '../src/validateString'
 
-describe('validateTuple', () => {
+describe.skip('validateTuple', () => {
   it('succeds without arguments for empty arrays', () => {
     const validate = validateTuple()
     expect(validate([])).toEqual([])

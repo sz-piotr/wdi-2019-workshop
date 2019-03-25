@@ -1,6 +1,6 @@
 import { validateNonEmptyString } from '../src/validateNonEmptyString'
 
-describe('validateNonEmptyString', () => {
+describe.skip('validateNonEmptyString', () => {
   it('succeds for strings', () => {
     expect(validateNonEmptyString('Hello World!')).toEqual([])
   })

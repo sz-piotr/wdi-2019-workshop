@@ -1,6 +1,6 @@
 import { validateIntBetween } from '../src/validateIntBetween'
 
-describe('validateIntBetween', () => {
+describe.skip('validateIntBetween', () => {
   it.each([
     [1, 0, 2],
     [1, 1, 1],
