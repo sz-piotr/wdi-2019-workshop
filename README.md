@@ -263,10 +263,10 @@ Zadania
 1. (*) `validateNot`
 1. (*) `validateObject`
 1. `validateAll`
-1. `validateNonEmptyString`
+1. (>) `validateNonEmptyString`
 1. `validateRegex`
 1. `validateInteger`
 1. `validateBetween`
-1. `validateIntBetween`
+1. (>) `validateIntBetween`
 1. `validateTuple`
-1. `validateForm`
+1. (>) `validateForm`
