@@ -1,0 +1,8 @@
+{
+  "name": "wdi-2019-workshop",
+  "version": "1.0.0",
+  "repository": "git@github.com:sz-piotr/wdi-2019-workshop.git",
+  "author": "Piotr Szlachciak <szlachciak.piotr@gmail.com>",
+  "license": "UNLICENSE",
+  "private": true
+}
