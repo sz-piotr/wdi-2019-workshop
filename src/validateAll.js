@@ -1,7 +1,9 @@
 export const validateAll = (...validators) => (value, path = '') => {
-  const errors = []
   for (const validate of validators) {
-    errors.push(...validate(value, path))
+    const errors = validate(value, path)
+    if (errors.length > 0) {
+      return errors
+    }
   }
-  return errors
+  return []
 }

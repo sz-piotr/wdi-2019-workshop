@@ -34,17 +34,16 @@ describe('validateAll', () => {
     ])
   })
 
-  it('returns all of the nested errors', () => {
+  it('returns only the first the errors', () => {
+    const errors = [
+      { path: 'a', expected: 'x' },
+      { path: 'b', expected: 'y' },
+    ]
     const validate = validateAll(
-      validateString,
-      failingValidator('AAA'),
+      () => errors,
       failingValidator('bbb'),
     )
-    expect(validate(null)).toEqual([
-      { path: '', expected: 'string' },
-      { path: '', expected: 'AAA' },
-      { path: '', expected: 'bbb' }
-    ])
+    expect(validate(null)).toEqual(errors)
   })
 
   it('can be nested within itself', () => {
@@ -62,12 +61,11 @@ describe('validateAll', () => {
 
   it('respects the provided path', () => {
     const validate = validateAll(
+      successValidator,
       failingValidator('x'),
-      failingValidator('y'),
     )
     expect(validate(null, 'foo')).toEqual([
       { path: 'foo', expected: 'x' },
-      { path: 'foo', expected: 'y' },
     ])
   })
 })
