@@ -83,3 +83,11 @@ section[data-skip] {
   border: .01rem solid black;
   white-space: nowrap;
 }
+
+ol, li {
+  text-align: left;
+}
+
+li {
+  padding-left: 1vw;
+}
