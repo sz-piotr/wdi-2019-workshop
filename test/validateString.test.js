@@ -10,11 +10,11 @@ describe('validateString', () => {
   })
 
   it.each([
-    [1],
-    [true],
-    [{ x: 1, y: 2 }],
-    [[1, 'foo']],
-  ])('fails for %s', (value) => {
+    1,
+    true,
+    { x: 1, y: 2 },
+    [1, 'foo'],
+  ])('fails for %p', (value) => {
     expect(validateString(value)).toEqual([
       { path: '', expected: 'string' }
     ])

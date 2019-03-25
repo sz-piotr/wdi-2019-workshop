@@ -3,9 +3,7 @@ import { validateString } from '../src/validateString'
 
 describe('validateObject', () => {
   it.each([
-    [1],
-    ['foo'],
-    [false]
+    1, 'foo', false, null, undefined
   ])('fails for %s', (value) => {
     const validate = validateObject({})
     expect(validate(value)).toEqual([

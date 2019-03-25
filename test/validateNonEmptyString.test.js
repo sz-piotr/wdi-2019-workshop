@@ -12,10 +12,10 @@ describe('validateNonEmptyString', () => {
   })
 
   it.each([
-    [1],
-    [true],
-    [{ x: 1, y: 2 }],
-    [[1, 'foo']],
+    1,
+    true,
+    { x: 1, y: 2 },
+    [1, 'foo'],
   ])('fails for %s', (value) => {
     expect(validateNonEmptyString(value)).toEqual([
       { path: '', expected: 'string' }

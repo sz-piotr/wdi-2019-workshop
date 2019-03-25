@@ -1,5 +1,5 @@
 export const validateObject = schema => (value, path = '') => {
-  if (typeof value !== 'object') {
+  if (typeof value !== 'object' || value === null) {
     return [{ path, expected: 'object' }]
   }
   const errors = []

@@ -6,21 +6,18 @@ describe('validateNot', () => {
     [true, false],
     [{}, {}],
     ['foo', Infinity]
-  ])('succeds for %s and %s', (a, b) => {
+  ])('succeds for %p and %p', (a, b) => {
     const validate = validateNot(a)
     expect(validate(b)).toEqual([])
   })
 
   const bar = { baz: 'foo' }
   it.each([
-    [1, 1],
-    [true, true],
-    [bar, bar],
-    ['foo', 'foo']
-  ])('fails for %s and %s', (a, b) => {
-    const validate = validateNot(a)
-    expect(validate(b)).toEqual([
-      { path: '', expected: `not ${JSON.stringify(b)}` }
+    1, true, bar, 'foo',
+  ])('fails for %p and itself', (x) => {
+    const validate = validateNot(x)
+    expect(validate(x)).toEqual([
+      { path: '', expected: `not ${JSON.stringify(x)}` }
     ])
   })
 
