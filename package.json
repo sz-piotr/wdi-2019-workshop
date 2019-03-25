@@ -4,5 +4,13 @@
   "repository": "git@github.com:sz-piotr/wdi-2019-workshop.git",
   "author": "Piotr Szlachciak <szlachciak.piotr@gmail.com>",
   "license": "UNLICENSE",
-  "private": true
+  "private": true,
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "jest": "^24.5.0"
+  }
 }

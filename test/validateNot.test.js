@@ -1,6 +1,6 @@
 import { validateNot } from '../src/validateNot'
 
-describe('validateString', () => {
+describe('validateNot', () => {
   it.each([
     [1, 2],
     [true, false],
