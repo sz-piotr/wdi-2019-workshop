@@ -1,0 +1,93 @@
+:root {
+  --base03:  #002b36; /* base03 */
+  --base02:  #073642; /* base02 */
+  --base01:  #586e75; /* base01 */
+  --base00:  #657b83; /* base00 */
+  --base0:   #839496; /* base0 */
+  --base1:   #93a1a1; /* base1 */
+  --base2:   #eee8d5; /* base2 */
+  --base3:   #fdf6e3; /* base3 */
+  --yellow:  #b58900; /* yellow */
+  --orange:  #cb4b16; /* orange */
+  --red:     #dc322f; /* red */
+  --magenta: #d33682; /* magenta */
+  --violet:  #6c71c4; /* violet */
+  --blue:    #268bd2; /* blue */
+  --cyan:    #2aa198; /* cyan */
+  --green:   #859900; /* green */
+}
+
+a {
+  font-family: 'Ubuntu Mono', monospace;
+  color: #268bd2; /* blue */
+}
+
+.token.function {
+  color: #268bd2; /* blue */
+  font-style: italic;
+}
+
+.token.operator {
+  color: #cb4b16; /* orange */
+}
+
+.token.number {
+  color: #d33682; /* magenta */
+}
+
+.token.string {
+  color: #b58900; /* yellow */
+}
+
+.token.regex,
+.token.interpolation .token.interpolation-punctuation.punctuation {
+  color: #dc322f; /* red */
+}
+
+.token.class-name {
+  color: #859900; /* green */
+}
+
+/* DARK THEME */
+
+.dark {
+  background-color: #002b36; /* base03 */
+  color: #a4b9b9; /* lighter than base1 */
+}
+
+.dark h1 {
+  color: #fdf6e3;
+}
+
+.dark .token.keyword {
+  color: #eee8d5; /* base2 */
+  /* font-weight: bold; */
+}
+
+.dark .token.punctuation {
+  color: #839496; /* base0 */
+}
+
+.dark .token.comment {
+  color: #657b83; /* base00 */
+}
+
+/* LIGHT THEME */
+
+.light {
+  background-color: #fdf6e3; /* base3 */
+  color: #073642; /* base02 */
+}
+
+.light .token.keyword {
+  color: #002b36; /* base03 */
+  font-weight: bold;
+}
+
+.light .token.punctuation {
+  color: #657b83; /* base00 */
+}
+
+.light .token.comment {
+  color: #93a1a1; /* base1 */
+}

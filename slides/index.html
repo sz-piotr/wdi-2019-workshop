@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css?family=Lato|Ubuntu+Mono:400,400i,700,700i&amp;subset=latin-ext" rel="stylesheet">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/theme.css">
+
+  <title>Programowanie funkcyjne w JS</title>
+  <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+</head>
+<body>
+
+<section>
+  <div class="light full">
+    <pre data-trim><code class="language-javascript">
+const input = [1, 2, 3, 4]
+const output = []
+
+for (let i = 0; i < input.length; i++) {
+  if (input[i] % 2 === 0) {
+    output.push(input[i])
+  }
+}
+
+// output = [2, 4]
+    </code></pre>
+  </div>
+</section>
+
+<section>
+  <div class="light full">
+    <pre data-trim><code class="language-javascript">
+const input = [1, 2, 3, 4]
+const isEven = x => x % 2 === 0
+const output = input.filter(isEven)
+
+// output = [2, 4]
+    </code></pre>
+  </div>
+</section>
+
+<section>
+  <div class="light full">
+    <pre data-trim><code class="language-javascript">
+// isEven :: number => boolean
+const isEven = x => x % 2 === 0
+    </code></pre>
+  </div>
+</section>
+
+<section>
+  <div class="light full">
+    <pre data-trim data-exit=1><code class="language-javascript">
+// isAbove :: (number, number) => boolean
+const isAbove = (target, value) => value > target
+    </code></pre>
+    <pre data-trim data-enter=1><code class="language-javascript">
+// isAbove :: number => number => boolean
+const isAbove = target => value => value > target
+    </code></pre>
+    <pre data-trim data-enter=2><code class="language-javascript">
+
+// isAbove3 :: number => boolean
+const isAbove3 = isAbove(3)
+  </code></pre>
+  <pre data-trim data-enter=3><code class="language-javascript">
+
+isAbove3(7) // true
+isAbove(5)(1) // false
+    </code></pre>
+  </div>
+</section>
+
+<section>
+  <div class="light full">
+    <pre data-trim><code class="language-javascript">
+// not :: (T => boolean) => T => boolean
+const not = fn => value => !fn(value)
+    </code></pre>
+    <pre data-trim data-enter=1><code class="language-javascript">
+
+// isEven :: number => boolean
+const isEven = x => x % 2 === 0
+
+// isOdd :: number => boolean
+const isOdd = not(isEven)
+    </code></pre>
+  </div>
+</section>
+
+<section>
+  <div class="light full">
+    <pre data-trim><code class="language-javascript">
+const employees = [
+  { name: 'John', salary: 2000 },
+  { name: 'Suzan', salary: 7000 },
+  { name: 'Amy', salary: 1500 },
+  { name: 'Peter', salary: 4200 },
+]
+    </code></pre>
+  </div>
+</section>
+
+<section>
+  <div class="light full">
+    <pre data-trim><code class="language-javascript">
+const richGuys = []
+
+for (let i = 0; i < employees.length; i++) {
+  if (employees[i].salary > 3000) {
+    richGuys.push(employees[i].name)
+  }
+}
+
+console.log(richGuys) // [Suzan, Peter]
+    </code></pre>
+  </div>
+</section>
+
+<section>
+  <div class="light full">
+    <pre data-trim><code class="language-javascript">
+const richGuys = employees
+  .filter(employee => employee.salary > 3000)
+  .map(employee => employee.name)
+
+console.log(richGuys) // [Suzan, Peter]
+    </code></pre>
+  </div>
+</section>
+
+<section>
+  <div class="light full">
+    <pre data-trim><code class="language-javascript">
+const pluck = prop => value => value[prop]
+
+const richGuys = employees
+  .filter(employee => employee.salary > 3000)
+  .map(pluck('name'))
+
+console.log(richGuys) // [Suzan, Peter]
+    </code></pre>
+  </div>
+</section>
+
+<section>
+  <div class="light full">
+    <pre data-trim><code class="language-javascript">
+const pluck = prop => value => value[prop]
+const isAbove = target => value => value > target
+const pipe = (f, g) => value => g(f(value))
+
+const richGuys = employees
+  .filter(pipe(
+    pluck('salary'),
+    isAbove(3000)
+  ))
+  .map(pluck('name'))
+
+console.log(richGuys) // [Suzan, Peter]
+    </code></pre>
+  </div>
+</section>
+
+<section>
+  <div class="light full">
+    <pre data-trim><code class="language-javascript">
+const formData = {
+  name: 'John Doe',
+  email: 'john.doe@mail.com',
+  creditCard: {
+    number: '1234 5678 9012 3456',
+    expires: [1, 23],
+    cvc: '123'
+  }
+}
+    </code></pre>
+  </div>
+</section>
+
+
+<section>
+  <div class="light full">
+    <pre data-trim style="font-size: 0.4em"><code class="language-javascript">
+const EMAIL_REGEX = /.+@.+/
+const CREDIT_CARD_REGEX = /\d{4} \d{4} \d{4} \d{4}/
+const CVC_REGEX = /\d{3}/
+
+function validateForm (data) {
+  const errors = []
+
+  if (data.name === '' && typeof data.name !== 'string') {
+    errors.push({ path: 'data.name', expected: 'non-empty string' })
+  }
+
+  if (data.email === '' && typeof data.email !== 'string') {
+    errors.push({ path: 'data.email', expected: 'non-empty string' })
+  } else if (!EMAIL_REGEX.test(data.email)) {
+    errors.push({ path: 'data.email', expected: 'valid email address' })
+  }
+
+  if (typeof data.creditCard !== 'object') {
+    errors.push({ path: 'data.creditCard', expected: 'object' })
+  } else {
+
+    if (data.creditCard.number === '' && typeof data.creditCard.number !== 'string') {
+      errors.push({ path: 'data.creditCard.number', expected: 'non-empty string' })
+    } else if (!CREDIT_CARD_REGEX.test(data.creditCard.number)) {
+      errors.push({ path: 'data.creditCard.number', expected: 'valid credit card number' })
+    }
+
+    if (!Array.isArray(data.creditCard.expires)) {
+      errors.push({ path: 'data.creditCard.expires', expected: 'array' })
+    } else {
+
+      // TODO: finish
+
+    }
+
+    if (data.creditCard.cvc === '' && typeof data.creditCard.cvc !== 'string') {
+      errors.push({ path: 'data.creditCard.cvc', expected: 'non-empty string' })
+    } else if (!CVC_REGEX.test(data.creditCard.cvc)) {
+      errors.push({ path: 'data.creditCard.cvc', expected: 'three digit cvc code' })
+    }
+
+  }
+
+  return errors
+}
+    </code></pre>
+  </div>
+</section>
+
+<section>
+  <div class="light full">
+    <pre data-trim data-exit=1><code class="language-javascript">
+const validateForm =
+    </code></pre>
+    <pre data-trim data-enter=1><code class="language-javascript">
+const validateForm = validateObject({
+})
+    </code></pre>
+  </div>
+</section>
+
+<section>
+  <div class="light full">
+    <pre data-trim><code class="language-javascript">
+const validateForm = validateObject({
+  name: validateNonEmptyString,
+    </code></pre>
+    <pre data-trim data-enter=1><code class="language-javascript">
+  email: validateRegex(/^.+@.+$/, 'email address'),
+    </code></pre>
+    <pre data-trim data-enter=2><code class="language-javascript">
+  creditCard: validateObject({
+    </code></pre>
+    <pre data-trim data-enter=3><code class="language-javascript">
+    number: validateRegex(
+      /^\d{4} \d{4} \d{4} \d{4}$/,
+      'credit card number'
+    ),
+    </code></pre>
+    <pre data-trim data-enter=4><code class="language-javascript">
+    expires: validateTuple(
+      validateIntBetween(1, 12),
+      validateIntBetween(0, 99)
+    ),
+    </code></pre>
+    <pre data-trim data-enter=5><code class="language-javascript">
+    cvc: validateRegex(/^\d{3}$/, 'three digit cvc code')
+    </code></pre>
+    <pre data-trim data-enter=2><code class="language-javascript">
+  })
+    </code></pre>
+    <pre data-trim><code class="language-javascript">
+})
+    </code></pre>
+  </div>
+</section>
+
+<script src="js/trim.js"></script>
+<script src="js/prism.js"></script>
+<script src="js/slides.js"></script>
+
+</body>
+</html>
